@@ -1,4 +1,4 @@
-﻿namespace _junioranheu_utils_package.Fixtures
+﻿namespace junioranheu_utils_package.Fixtures
 {
     public static class Format
     {

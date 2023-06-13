@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Text;
 using TimeZoneConverter;
-using static _junioranheu_utils_package.Fixtures.Encrypt;
+using static junioranheu_utils_package.Fixtures.Encrypt;
 
-namespace _junioranheu_utils_package.Fixtures
+namespace junioranheu_utils_package.Fixtures
 {
     public static class Get
     {

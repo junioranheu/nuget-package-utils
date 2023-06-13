@@ -1,9 +1,9 @@
-﻿using _junioranheu_utils_package.Entities;
+﻿using junioranheu_utils_package.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Net.Mail;
 
-namespace _junioranheu_utils_package.Fixtures
+namespace junioranheu_utils_package.Fixtures
 {
     public static class Post
     {

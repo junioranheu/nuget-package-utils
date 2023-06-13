@@ -1,4 +1,4 @@
-﻿namespace _junioranheu_utils_package.Entities
+﻿namespace junioranheu_utils_package.Entities
 {
     public class EmailDadosReplace
     {
