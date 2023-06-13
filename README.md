@@ -61,5 +61,4 @@ Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto e
   Exemplo: valida e-mail ou valida senha.
 ```
 ## Publicação
-O projeto foi publicado na XXXXXX:
-XXXXXX
+O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/1.0.0)
