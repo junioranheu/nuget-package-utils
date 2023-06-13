@@ -10,7 +10,7 @@ namespace junioranheu_utils_package.Fixtures
         /// <summary>
         /// Método para SQL Server;
         /// Recebe um resultado de uma query (LINQ) como parâmetro, 
-        /// converte os dados para DataTable e depois realiza o Bulkinsert;
+        /// converte os dados para DataTable e depois realiza o Bulk Insert;
         /// </summary>
         public static async Task ConverterLINQQueryParaDataTableParaBulkInsert<T>(List<T> queryLINQ, string nomeTabelaDestino, SqlConnection connection)
         {
