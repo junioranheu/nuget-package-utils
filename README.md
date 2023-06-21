@@ -2,6 +2,10 @@
 # @junioranheu-utils-package
 
 Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET
+
+## Publicação
+O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/1.0.0)
+
 ## Conteúdo/Fixtures
 
 #### BulkCopy.cs
@@ -60,5 +64,3 @@ Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto e
   
   Exemplo: valida e-mail ou valida senha.
 ```
-## Publicação
-O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/1.0.0)
