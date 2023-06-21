@@ -4,7 +4,7 @@
 Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET
 
 ## Publicação
-O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/1.0.0)
+O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/)
 
 ## Conteúdo/Fixtures
 
