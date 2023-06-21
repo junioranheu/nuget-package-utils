@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using TimeZoneConverter;
@@ -141,6 +142,23 @@ namespace junioranheu_utils_package.Fixtures
         {
             DateTime horarioBrasilia = GerarHorarioBrasilia();
             return $"{horarioBrasilia:dd/MM/yyyy} às {horarioBrasilia:HH:mm:ss}";
+        }
+
+        /// <summary>
+        /// Clona um objeto de forma que não há problemas em suas referências;
+        /// Para mais informações busque Deep Clone;
+        /// </summary>
+        public static T GerarDeepClone<T>(T objeto)
+        {
+            if (objeto is null)
+            {
+                throw new Exception($"Houve uma falha interna ao gerar deep clone do objeto {objeto!.GetType()}");
+            }
+
+            var deserialize = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
+            var clone = JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(objeto), deserialize)!;
+
+            return clone;
         }
     }
 }
