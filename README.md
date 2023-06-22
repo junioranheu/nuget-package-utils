@@ -11,12 +11,7 @@ O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/pac
 #### BulkCopy.cs
 
 ```
-  Método para realizar insert em massa super performática (Bulk Copy).
-
-  Recebe um resultado de uma query (LINQ) como parâmetro, 
-  converte todos os dados para uma DataTable e, finalmente, realiza o Bulk Insert.
-
-  Aceita uma conexão tanto para o SQL Server, quanto para o MySQL.
+  Os metodos referentes ao Bulk Copy foram alocados em um [novo projeto](https://github.com/junioranheu/nuget-package-Bulk.Sql)
 ```
 
 #### Convert.cs
