@@ -10,9 +10,7 @@ O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/pac
 
 #### BulkCopy.cs
 
-```
-  Os metodos referentes ao Bulk Copy foram alocados em um [novo projeto](https://github.com/junioranheu/nuget-package-Bulk.Sql)
-```
+Os metodos referentes ao Bulk Copy foram alocados em um [novo projeto](https://github.com/junioranheu/nuget-package-Bulk.Sql)
 
 #### Convert.cs
 
