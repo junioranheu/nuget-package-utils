@@ -28,7 +28,7 @@ namespace junioranheu_utils_package.Fixtures
 
             if (base64.Contains(split))
             {
-                normalizarBase64 = base64.Substring(base64.IndexOf(split) + split.Length);
+                normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
             }
 
             byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
@@ -48,7 +48,7 @@ namespace junioranheu_utils_package.Fixtures
             List<IFormFile> formFiles = new();
 
             string split = ";base64,";
-            string normalizarBase64 = base64.Substring(base64.IndexOf(split) + split.Length);
+            string normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
             byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
             MemoryStream stream = new(bytes);
 
@@ -72,6 +72,32 @@ namespace junioranheu_utils_package.Fixtures
             };
 
             return formFile;
+        }
+
+        /// <summary>
+        /// Converter caminho de um arquivo para stream;
+        /// </summary>
+        public static async Task<Stream?> ConverterPathParaStream(string path, int? chunkSize = 4096)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return null;
+            }
+
+            if (!System.IO.File.Exists(path))
+            {
+                return null;
+            }
+
+            return await Task.FromResult(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, chunkSize.GetValueOrDefault(), FileOptions.Asynchronous));
+        }
+
+        /// <summary>
+        /// Auto-sugestivo;
+        /// </summary>
+        public static int ConverterMegasParaBytes(double? megas)
+        {
+            return System.Convert.ToInt32(megas.GetValueOrDefault() * (1024 * 1024));
         }
     }
 }

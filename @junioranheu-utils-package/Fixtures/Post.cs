@@ -2,14 +2,16 @@
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.CompilerServices;
+using static junioranheu_utils_package.Fixtures.Convert;
 
 namespace junioranheu_utils_package.Fixtures
 {
     public static class Post
     {
         /// <summary>
-        /// SMTP Gmail;
-        /// https://www.youtube.com/watch?v=FZfneLNyE4o&ab_channel=AWPLife 
+        /// Enviar e-mail (SMTP) via Gmail;
+        /// www.youtube.com/watch?v=FZfneLNyE4o&ab_channel=AWPLife 
         /// </summary>
         public static async Task<bool> EnviarEmail(string _emailDominio, string _emailPorta, string _emailEmail, string _emailChave, string _emailRemetente,
             string emailTo, string assunto, string nomeArquivo, List<EmailDadosReplace> listaDadosReplace)
@@ -125,6 +127,35 @@ namespace junioranheu_utils_package.Fixtures
             }
 
             return nomeArquivo;
+        }
+
+        /// <summary>
+        /// Exemplo de streaming de um arquivo dividido em chunks;
+        /// 
+        /// Sites para testar/validar os chunks gerados:
+        /// Base64 to .mp4: base64.guru/converter/decode/video;
+        /// Base64 to .jpg: onlinejpgtools.com/convert-base64-to-jpg;
+        /// </summary>
+        public static async IAsyncEnumerable<byte[]> StreamFileEmChunks(string arquivo, int chunkSizeBytes, [EnumeratorCancellation] CancellationToken cancellationToken)
+        {
+            if (arquivo is null || chunkSizeBytes < 1)
+            {
+                throw new Exception("Os parâmetros 'nomeArquivo' e 'chunkSizeBytes' não devem ser nulos");
+            }
+
+            Stream? stream = await ConverterPathParaStream(arquivo, chunkSizeBytes) ?? throw new Exception("Houve um erro interno ao buscar arquivo no servidor e convertê-lo em Stream");
+            byte[]? buffer = new byte[chunkSizeBytes > stream.Length ? (int)stream.Length : chunkSizeBytes];
+
+            int bytesLidos;
+            while (!cancellationToken.IsCancellationRequested && ((bytesLidos = await stream.ReadAsync(buffer, cancellationToken)) > 0))
+            {
+                byte[]? chunk = new byte[bytesLidos];
+                buffer.CopyTo(chunk, 0);
+
+                yield return chunk;
+
+                await Task.Delay(500, cancellationToken);
+            }
         }
     }
 }
