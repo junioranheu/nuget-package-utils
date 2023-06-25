@@ -1,6 +1,6 @@
-﻿namespace junioranheu_utils_package.Entities
+﻿namespace junioranheu_utils_package.Entities.Output
 {
-    public class EmailDadosReplace
+    public class EmailDadosReplaceOutput
     {
         public string? Key { get; set; } = null;
         public string? Value { get; set; } = null;

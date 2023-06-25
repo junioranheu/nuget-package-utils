@@ -1,4 +1,4 @@
-﻿using junioranheu_utils_package.Entities;
+﻿using junioranheu_utils_package.Entities.Output;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Net.Mail;
@@ -14,7 +14,7 @@ namespace junioranheu_utils_package.Fixtures
         /// www.youtube.com/watch?v=FZfneLNyE4o&ab_channel=AWPLife 
         /// </summary>
         public static async Task<bool> EnviarEmail(string _emailDominio, string _emailPorta, string _emailEmail, string _emailChave, string _emailRemetente,
-            string emailTo, string assunto, string nomeArquivo, List<EmailDadosReplace> listaDadosReplace)
+            string emailTo, string assunto, string nomeArquivo, List<EmailDadosReplaceOutput> listaDadosReplace)
         {
             if (string.IsNullOrEmpty(emailTo) || string.IsNullOrEmpty(assunto) || string.IsNullOrEmpty(nomeArquivo))
             {
@@ -53,7 +53,7 @@ namespace junioranheu_utils_package.Fixtures
 
             return true;
 
-            static string AjustarConteudoEmailHTML(string caminhoFinalArquivoHTML, List<EmailDadosReplace>? listaDadosReplace)
+            static string AjustarConteudoEmailHTML(string caminhoFinalArquivoHTML, List<EmailDadosReplaceOutput>? listaDadosReplace)
             {
                 string conteudoEmailHtml = string.Empty;
 
@@ -135,8 +135,10 @@ namespace junioranheu_utils_package.Fixtures
         /// Sites para testar/validar os chunks gerados:
         /// Base64 to .mp4: base64.guru/converter/decode/video;
         /// Base64 to .jpg: onlinejpgtools.com/convert-base64-to-jpg;
+        /// 
+        /// Como chamar o método: ibb.co/rsqnY42 [Imagem de exemplo];
         /// </summary>
-        public static async IAsyncEnumerable<byte[]> StreamFileEmChunks(string arquivo, int chunkSizeBytes, [EnumeratorCancellation] CancellationToken cancellationToken)
+        public static async IAsyncEnumerable<StreamingFileOutput> StreamFileEmChunks(string arquivo, long chunkSizeBytes, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
             if (arquivo is null || chunkSizeBytes < 1)
             {
@@ -144,17 +146,26 @@ namespace junioranheu_utils_package.Fixtures
             }
 
             Stream? stream = await ConverterPathParaStream(arquivo, chunkSizeBytes) ?? throw new Exception("Houve um erro interno ao buscar arquivo no servidor e convertê-lo em Stream");
-            byte[]? buffer = new byte[chunkSizeBytes > stream.Length ? (int)stream.Length : chunkSizeBytes];
+            byte[]? buffer = new byte[chunkSizeBytes];
 
-            int bytesLidos;
-            while (!cancellationToken.IsCancellationRequested && ((bytesLidos = await stream.ReadAsync(buffer, cancellationToken)) > 0))
+            while (!cancellationToken.IsCancellationRequested && (await stream.ReadAsync(buffer, cancellationToken) > 0))
             {
-                byte[]? chunk = new byte[bytesLidos];
-                buffer.CopyTo(chunk, 0);
+                byte[]? chunk = new byte[chunkSizeBytes];
 
-                yield return chunk;
+                try
+                {
+                    buffer.CopyTo(chunk, 0);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Houve um erro interno. Mais informações: {ex.Message}");
+                }
 
-                await Task.Delay(500, cancellationToken);
+                yield return new StreamingFileOutput()
+                {
+                    PorcentagemCompleta = System.Convert.ToDouble(stream.Position) / System.Convert.ToDouble(stream.Length) * 100,
+                    Chunk = chunk
+                };
             }
         }
     }
