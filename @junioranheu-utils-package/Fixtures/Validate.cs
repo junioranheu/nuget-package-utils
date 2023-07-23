@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
 
 namespace junioranheu_utils_package.Fixtures
 {
@@ -71,6 +72,29 @@ namespace junioranheu_utils_package.Fixtures
             }
 
             return (true, string.Empty);
+        }
+
+        /// <summary>
+        /// Valida se um IFormFile é uma imagem;
+        /// </summary>
+        public static bool ValidarIFormFile_IsImagem(IFormFile file)
+        {
+            string[] imageContentTypes = { "image/jpeg", "image/png", "image/gif", "image/bmp" };
+
+            if (!imageContentTypes.Contains(file.ContentType))
+            {
+                return false;
+            }
+
+            string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
+            string fileExtension = System.IO.Path.GetExtension(file.FileName);
+
+            if (!imageExtensions.Contains(fileExtension, StringComparer.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

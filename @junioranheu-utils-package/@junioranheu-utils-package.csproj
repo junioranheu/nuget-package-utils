@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageId>junioranheu-utils-package</PackageId>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <Authors>junioranheu</Authors>
     <Company>junioranheu</Company>
     <Description>Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 7</Description>
