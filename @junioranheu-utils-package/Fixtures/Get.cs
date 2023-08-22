@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Text;
 using TimeZoneConverter;
@@ -159,6 +161,62 @@ namespace junioranheu_utils_package.Fixtures
             var clone = JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(objeto), deserialize)!;
 
             return clone;
+        }
+
+        /// <summary>
+        /// Verifica se a propriedade é uma Key (principal);
+        /// </summary>
+        public static bool IsKey(PropertyInfo property)
+        {
+            return Attribute.IsDefined(property, typeof(KeyAttribute));
+        }
+
+        /// <summary>
+        /// Verifica se a propriedade é uma FK;
+        /// </summary>
+        public static bool IsForeignKey(PropertyInfo property)
+        {
+            var propertyType = property.PropertyType;
+            var isCollection = propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(ICollection<>);
+            var isClass = propertyType.IsClass && propertyType != typeof(string);
+
+            return isCollection || isClass;
+        }
+
+        /// <summary>
+        /// Verifica se a propriedade é uma propriedade não-mapeada;
+        /// </summary>
+        public static bool IsNotMapped(PropertyInfo property)
+        {
+            return Attribute.IsDefined(property, typeof(NotMappedAttribute));
+        }
+
+        /// <summary>
+        /// Detecta o encoding do arquivo (via Stream);
+        /// </summary>
+        public static Encoding DetectarEncoding(Stream stream)
+        {
+            byte[] bom = new byte[4];
+            stream.Read(bom, 0, 4);
+
+            if (bom.Length >= 2 && bom[0] == 0xFE && bom[1] == 0xFF)
+            {
+                return Encoding.BigEndianUnicode;
+            }
+            if (bom.Length >= 2 && bom[0] == 0xFF && bom[1] == 0xFE)
+            {
+                if (bom.Length >= 4 && bom[2] == 0 && bom[3] == 0)
+                {
+                    return Encoding.UTF32;
+                }
+                return Encoding.Unicode;
+            }
+            if (bom.Length >= 3 && bom[0] == 0xEF && bom[1] == 0xBB && bom[2] == 0xBF)
+            {
+                return Encoding.UTF8;
+            }
+
+            return Encoding.UTF8;
         }
     }
 }
