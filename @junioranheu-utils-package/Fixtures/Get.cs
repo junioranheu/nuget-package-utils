@@ -252,16 +252,9 @@ namespace junioranheu_utils_package.Fixtures
             try
             {
                 ServiceController[]? listaServicos = ServiceController.GetServices();
-
-                foreach (ServiceController s in listaServicos)
-                {
-                    if (s.ServiceName.Equals(servico, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
+                bool isServicoInstaladoNaMaquina = listaServicos.Any(s => s.ServiceName.Equals(servico, StringComparison.OrdinalIgnoreCase));
+    
+                return isServicoInstaladoNaMaquina;
             }
             catch (Exception)
             {
