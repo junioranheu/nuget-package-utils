@@ -83,7 +83,7 @@ namespace junioranheu_utils_package.Fixtures
         public static int GerarNumeroAleatorio(int min, int max)
         {
             Random random = new();
-            int numeroAleatorio = random.Next(min, max - 1);
+            int numeroAleatorio = random.Next(min, max + 1);
 
             return numeroAleatorio;
         }
