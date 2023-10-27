@@ -10,7 +10,7 @@ namespace junioranheu_utils_package.Fixtures
     public static class Post
     {
         /// <summary>
-        /// Enviar e-mail (SMTP) via Gmail;
+        /// Envia um e-mail (SMTP) via Gmail;
         /// www.youtube.com/watch?v=FZfneLNyE4o&ab_channel=AWPLife 
         /// </summary>
         public static async Task<bool> EnviarEmail(string _emailDominio, string _emailPorta, string _emailEmail, string _emailChave, string _emailRemetente,

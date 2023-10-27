@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace junioranheu_utils_package.Fixtures
 {
-    public static class Validate
+    public static partial class Validate
     {
         /// <summary>
         /// Auto-sugestivo;
@@ -15,11 +15,11 @@ namespace junioranheu_utils_package.Fixtures
                 return false;
             }
 
-            return Regex.IsMatch(email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+            return RegexEmail().IsMatch(email);
         }
 
         /// <summary>
-        /// Validar se a senha do usuário é forte o suficiente verificando requisitos de senha:
+        /// Valida se a senha do usuário é forte o suficiente verificando requisitos de senha:
         /// #1 - Tem número;
         /// #2 - Tem letra maiúscula;
         /// #3 - Tem pelo menos X caracteres;
@@ -32,13 +32,13 @@ namespace junioranheu_utils_package.Fixtures
                 return (false, "A senha não pode estar vazia");
             }
 
-            var temNumero = new Regex(@"[0-9]+");
+            var temNumero = RegexNumero();
             if (!temNumero.IsMatch(senha))
             {
                 return (false, "A senha deve conter ao menos um número");
             }
 
-            var temMaiusculo = new Regex(@"[A-Z]+");
+            var temMaiusculo = RegexIsMaiusculo();
             if (!temMaiusculo.IsMatch(senha))
             {
                 return (false, "A senha deve conter ao menos uma letra maiúscula");
@@ -87,7 +87,7 @@ namespace junioranheu_utils_package.Fixtures
             }
 
             string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
-            string fileExtension = System.IO.Path.GetExtension(file.FileName);
+            string fileExtension = Path.GetExtension(file.FileName);
 
             if (!imageExtensions.Contains(fileExtension, StringComparer.OrdinalIgnoreCase))
             {
@@ -96,5 +96,14 @@ namespace junioranheu_utils_package.Fixtures
 
             return true;
         }
+
+        [GeneratedRegex("^([\\w-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([\\w-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$")]
+        private static partial Regex RegexEmail();
+
+        [GeneratedRegex("[0-9]+")]
+        private static partial Regex RegexNumero();
+
+        [GeneratedRegex("[A-Z]+")]
+        private static partial Regex RegexIsMaiusculo();
     }
 }

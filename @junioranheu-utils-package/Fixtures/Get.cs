@@ -13,8 +13,7 @@ namespace junioranheu_utils_package.Fixtures
     public static class Get
     {
         /// <summary>
-        /// Converter para o horário de Brasilia;
-        /// blog.yowko.com/timezoneinfo-time-zone-id-not-found/;
+        /// Obtém o horário atual, forçando ao horário de Brasilia;
         /// </summary>
         public static DateTime GerarHorarioBrasilia()
         {
@@ -23,8 +22,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Gerar Lorem Ipsum;
-        /// stackoverflow.com/questions/4286487/is-there-any-lorem-ipsum-generator-in-c;
+        /// Gera um texto Lorem Ipsum;
         /// </summary>
         public static string GerarLoremIpsum(int minWords, int maxWords, int minSentences, int maxSentences, int numParagraphs, bool isAdicionarTagP)
         {
@@ -67,8 +65,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Pegar a descrição de um enum;
-        /// https://stackoverflow.com/questions/50433909/get-string-name-from-enum-in-c-sharp;
+        /// Obtém a descrição de um enum;
         /// </summary>
         public static string ObterDescricaoEnum(Enum enumVal)
         {
@@ -79,7 +76,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Gerar um número aleatório com base na em um valor mínimo e máximo;
+        /// Gera um número aleatório com base na em um valor mínimo e máximo;
         /// </summary>
         public static int GerarNumeroAleatorio(int min, int max)
         {
@@ -90,7 +87,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Gerar uma string aleatória com base na quantidade de caracteres desejados;
+        /// Gera uma string aleatória com base na quantidade de caracteres desejados;
         /// </summary>
         public static string GerarStringAleatoria(int qtdCaracteres, bool isApenasMaiusculas)
         {
@@ -102,7 +99,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Gerar um código hash para o usuário com base no usuarioId + string aleatória;
+        /// Gera um código hash para o usuário com base no usuarioId + string aleatória;
         /// </summary>
         public static string GerarHashUsuario(int usuarioId)
         {
@@ -113,11 +110,10 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Verificar se a aplicação está sendo executada em localhost ou publicada;
+        /// Verifica se a aplicação está sendo executada em localhost ou publicada;
         /// </summary>
         public static bool ObterIsDebug()
         {
-            // https://stackoverflow.com/questions/12135854/best-way-to-tell-if-in-production-or-development-environment-in-net
 #if DEBUG
             return true;
 #else
@@ -126,9 +122,9 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Verificar se o front-end está sendo executado em localhost ou publicado;
+        /// Verifica se o front-end está sendo executado em localhost ou publicado;
         /// </summary>
-        public static string ObterCaminhoFront(string _urlFrontDev, string _urlFrontProd)
+        public static string ObterCaminhoFront()
         {
             if (ObterIsDebug())
             {
@@ -244,7 +240,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Verificar se um serviço em questão, passado por parâmetro, está ou não instalado na máquina;
+        /// Verifica se um serviço em questão, passado por parâmetro, está ou não instalado na máquina;
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validar a compatibilidade da plataforma", Justification = "<Pendente>")]
         public static bool IsServicoInstaladoNaMaquina(string servico)
@@ -253,7 +249,7 @@ namespace junioranheu_utils_package.Fixtures
             {
                 ServiceController[]? listaServicos = ServiceController.GetServices();
                 bool isServicoInstaladoNaMaquina = listaServicos.Any(s => s.ServiceName.Equals(servico, StringComparison.OrdinalIgnoreCase));
-    
+
                 return isServicoInstaladoNaMaquina;
             }
             catch (Exception)
