@@ -122,19 +122,6 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Verifica se o front-end está sendo executado em localhost ou publicado;
-        /// </summary>
-        public static string ObterCaminhoFront()
-        {
-            if (ObterIsDebug())
-            {
-                return _urlFrontDev;
-            }
-
-            return _urlFrontProd;
-        }
-
-        /// <summary>
         /// Detalha em texto a data e hora atual;
         /// </summary>
         public static string ObterDetalhesDataHora()
