@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.ServiceProcess;
 using System.Text;
 using TimeZoneConverter;
@@ -243,6 +244,19 @@ namespace junioranheu_utils_package.Fixtures
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Obtém o nome de um método assíncrono;
+        /// </summary>
+        public static string ObterNomeDoMetodo([CallerMemberName] string? nome = null)
+        {
+            if (string.IsNullOrEmpty(nome))
+            {
+                throw new Exception("Houve um problema ao obter o nome do método requisitado");
+            }
+
+            return nome ?? string.Empty;
         }
     }
 }
