@@ -6,6 +6,15 @@ Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto e
 ## Publicação
 O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/)
 
+
+## Utilização
+
+👉 Uma vez que você instalou o pacote <i>junioranheu_utils_package</i>, você deve importá-lo da seguinte maneira:
+
+```
+using static junioranheu_utils_package.Fixtures.[Convert | Encrypt | Format | Get | Post | Validate ];
+```
+
 ## Conteúdo/Fixtures
 
 #### BulkCopy.cs
