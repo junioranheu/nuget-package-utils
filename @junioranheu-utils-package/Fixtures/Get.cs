@@ -258,5 +258,30 @@ namespace junioranheu_utils_package.Fixtures
 
             return nome ?? string.Empty;
         }
+
+        /// <summary>
+        /// Obtém todo restante de uma string após certo delimitador informado por parâmetro;
+        /// </summary>
+        public static string ObterStringAposDelimitador(string? str, char delimitador, bool isEstourarException = true)
+        {
+            if (str is null)
+            {
+                return string.Empty;
+            }
+
+            int index = str.LastIndexOf(delimitador);
+
+            if (index != -1)
+            {
+                return str[(index + 1)..];
+            }
+
+            if (isEstourarException)
+            {
+                throw new Exception($"Falha ao executar o método {ObterNomeDoMetodo()}");
+            }
+
+            return string.Empty;
+        }
     }
 }
