@@ -12,7 +12,7 @@ O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/pac
 👉 Uma vez que você instalou o pacote <i>junioranheu_utils_package</i>, você deve importá-lo da seguinte maneira:
 
 ```
-using static junioranheu_utils_package.Fixtures.[Convert | Encrypt | Format | Get | Post | Validate ];
+using static junioranheu_utils_package.Fixtures.[Convert | Encrypt | Format | Get | Post | Validate];
 ```
 
 ## Conteúdo/Fixtures
