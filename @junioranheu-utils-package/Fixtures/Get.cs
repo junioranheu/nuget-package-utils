@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using junioranheu_utils_package.Entities.Output;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -282,6 +283,23 @@ namespace junioranheu_utils_package.Fixtures
             }
 
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Recebe um <Enum> e lista todos os valores dele mapeados pela classe de resposta "EnumOutput";
+        /// O método trata o Enum caso ele tenha/não tenha objetos com "[Description]";
+        /// Exemplo de uso: List<EnumOutput> lista = ListarEnum<ItemTipoEnum>();
+        /// </summary>
+        public static List<EnumOutput> ListarEnum<TEnum>() where TEnum : Enum
+        {
+            return Enum.GetValues(typeof(TEnum)).
+                   Cast<TEnum>().
+                   Select(x =>
+                   {
+                       FieldInfo? info = x.GetType().GetField(x.ToString());
+                       string desc = info!.GetCustomAttributes(typeof(DescriptionAttribute), false).FirstOrDefault() is DescriptionAttribute descriptionAttribute ? descriptionAttribute.Description : x.ToString();
+                       return new EnumOutput { Id = (int)(object)x, Item = info.Name, Desc = desc };
+                   }).ToList();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace junioranheu_utils_package.Entities.Output
 {
-    public class StreamingFileOutput
+    public sealed class StreamingFileOutput
     {
         public double PorcentagemCompleta { get; set; }
 
