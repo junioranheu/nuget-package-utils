@@ -10,11 +10,11 @@
     <Version>1.0.14</Version>
     <Authors>junioranheu</Authors>
     <Company>junioranheu</Company>
-    <Description>Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 7</Description>
+    <Description>Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 8</Description>
     <PackageReadmeFile>README-utf8.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/junioranheu/nuget-package-utils</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>net7; utils</PackageTags>
+    <PackageTags>net8; utils</PackageTags>
     <PackageLicenseFile>license.txt</PackageLicenseFile>
   </PropertyGroup>
 
