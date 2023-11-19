@@ -89,10 +89,10 @@ namespace junioranheu_utils_package.Fixtures
         /// nomeArquivoSemExtensao = o nome do novo objeto em questão;
         /// extensao = por exemplo: ".jpg";
         /// path = nome do caminho do arquivo, da pasta. Por exemplo: "/Uploads/Usuarios/";
-        /// nomeArquivoAnterior = o nome do arquivo que constava anterior, caso exista;
+        /// nomeArquivoAnteriorSemExtensao = o nome do arquivo que constava anterior, caso exista;
         /// hostingEnvironment = o caminho até o wwwroot;
         /// </summary>
-        public static async Task<string?> SubirArquivoEmPasta(IFormFile arquivo, string nomeArquivoSemExtensao, string extensao, string path, string? nomeArquivoAnterior, string webRootPath)
+        public static async Task<string?> SubirArquivoEmPasta(IFormFile arquivo, string nomeArquivoSemExtensao, string extensao, string path, string? nomeArquivoAnteriorSemExtensao, string webRootPath)
         {
             if (arquivo is null || arquivo.Length <= 0)
             {
@@ -113,10 +113,10 @@ namespace junioranheu_utils_package.Fixtures
                 throw new Exception("Diretório inválido");
             }
 
-            // Verificar se já existe um arquivo anterior. Caso exista, delete-;
-            if (!string.IsNullOrEmpty(nomeArquivoAnterior))
+            // Verificar se já existe um arquivo anterior. Caso exista, delete-o;
+            if (!string.IsNullOrEmpty(nomeArquivoAnteriorSemExtensao))
             {
-                string pathCaminhoAnterior = Path.Combine(fullPath, nomeArquivoAnterior);
+                string pathCaminhoAnterior = Path.Combine(fullPath, $"{nomeArquivoAnteriorSemExtensao}{extensao}");
 
                 if (File.Exists(pathCaminhoAnterior))
                 {
