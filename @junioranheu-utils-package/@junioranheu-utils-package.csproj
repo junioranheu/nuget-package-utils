@@ -1,47 +1,51 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <RootNamespace>junioranheu_utils_package</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageId>junioranheu-utils-package</PackageId>
-    <Version>1.0.16</Version>
-    <Authors>junioranheu</Authors>
-    <Company>junioranheu</Company>
-    <Description>Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 8</Description>
-    <PackageReadmeFile>README-utf8.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/junioranheu/nuget-package-utils</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>net8; utils</PackageTags>
-    <PackageLicenseFile>license.txt</PackageLicenseFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>junioranheu_utils_package</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageId>junioranheu-utils-package</PackageId>
+		<Version>1.0.17</Version>
+		<Authors>junioranheu</Authors>
+		<Company>junioranheu</Company>
+		<Description>Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 8</Description>
+		<PackageReadmeFile>README-utf8.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/junioranheu/nuget-package-utils</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>net8; utils</PackageTags>
+		<PackageLicenseFile>license.txt</PackageLicenseFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0" />
-    <PackageReference Include="TimeZoneConverter" Version="6.1.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+		<PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0" />
+		<PackageReference Include="TimeZoneConverter" Version="6.1.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\Input\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Entities\Input\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\license.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README-utf8.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\license.txt">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README-utf8.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
 </Project>

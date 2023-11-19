@@ -92,7 +92,7 @@ namespace junioranheu_utils_package.Fixtures
         /// nomeArquivoAnteriorSemExtensao = o nome do arquivo que constava anterior, caso exista;
         /// hostingEnvironment = o caminho até o wwwroot;
         /// </summary>
-        public static async Task<string?> SubirArquivoEmPastaXD(IFormFile arquivo, string nomeArquivoSemExtensao, string extensao, string path, string? nomeArquivoAnteriorSemExtensao, string webRootPath)
+        public static async Task<string?> SubirArquivoEmPasta(IFormFile arquivo, string nomeArquivoSemExtensao, string extensao, string path, string? nomeArquivoAnteriorSemExtensao, string webRootPath)
         {
             if (arquivo is null || arquivo.Length <= 0)
             {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using static junioranheu_utils_package.Fixtures.Get;
 
 namespace junioranheu_utils_package.Fixtures
@@ -8,14 +7,59 @@ namespace junioranheu_utils_package.Fixtures
     {
         /// <summary>
         /// Converte IFormFile para bytes[];
-        /// https://stackoverflow.com/questions/36432028/how-to-convert-a-file-into-byte-array-in-memory;
         /// </summary>
         public static async Task<byte[]> ConverterIFormFileParaBytes(IFormFile formFile)
         {
-            await using var memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new();
+            memoryStream.Seek(0, SeekOrigin.Begin);
             await formFile.CopyToAsync(memoryStream);
 
             return memoryStream.ToArray();
+        }
+
+        /// <summary>
+        /// Converte IFormFile para Base64;
+        /// </summary>
+        public static string ConverterIFormFileParaBase64(IFormFile formFile)
+        {
+            MemoryStream memoryStream = new();
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            formFile.CopyTo(memoryStream);
+
+            byte[] fileBytes = memoryStream.ToArray();
+            string base64String = System.Convert.ToBase64String(fileBytes);
+
+            return base64String;
+        }
+
+        /// <summary>
+        /// Converte Base64 para arquivo;
+        /// </summary>
+        public static IFormFile ConverterBase64ParaIFormFile(string base64)
+        {
+            string split = ";base64,";
+            string normalizarBase64 = base64;
+
+            if (base64.Contains(split))
+            {
+                normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
+            }
+
+            byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
+            MemoryStream memoryStream = new(bytes);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            IFormFile file = new FormFile(memoryStream, 0, bytes.Length, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+
+            return file;
+        }
+
+        /// <summary>
+        /// Converte Base64 para bytes[];
+        /// </summary>
+        public static byte[] ConverterBase64ParaBytes(string base64)
+        {
+            return System.Convert.FromBase64String(base64);
         }
 
         /// <summary>
@@ -23,42 +67,16 @@ namespace junioranheu_utils_package.Fixtures
         /// </summary>
         public static IFormFile ConverterBytesParaIFormFile(byte[] bytes)
         {
-            using var memoryStream = new MemoryStream(bytes);
+            MemoryStream memoryStream = new(bytes);
+            memoryStream.Seek(0, SeekOrigin.Begin);
             string strRandom = GerarStringAleatoria(5, false);
+
             FormFile formFile = new(memoryStream, 0, bytes.Length, strRandom, strRandom)
             {
                 Headers = new HeaderDictionary()
             };
 
             return formFile;
-        }
-
-        /// <summary>
-        /// Converte Base64 para arquivo;
-        /// </summary>
-        public static IFormFile ConverterBase64ParaFile(string base64)
-        {
-            string split = ";base64,";
-            string normalizarBase64 = base64;
-
-            try
-            {
-                if (base64.Contains(split))
-                {
-                    normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
-                }
-
-                byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
-
-                MemoryStream stream = new(bytes);
-                IFormFile file = new FormFile(stream, 0, bytes.Length, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
- 
-                return file;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Houve um erro ao processar e converter a imagem. Mais detalhes: {ex.Message}");
-            }
         }
 
         /// <summary>
@@ -70,27 +88,9 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Converte Base64 para imagem;
-        /// </summary>
-        public static IFormFile ConverterBase64ParaImagem(string base64)
-        {
-            List<IFormFile> formFiles = [];
-
-            string split = ";base64,";
-            string normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
-            byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
-            MemoryStream stream = new(bytes);
-
-            IFormFile file = new FormFile(stream, 0, bytes.Length, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-            formFiles.Add(file);
-
-            return formFiles[0];
-        }
-
-        /// <summary>
         /// Converte path de um arquivo para arquivo com base em "tipoConteudo";
         /// </summary>
-        public static IFormFile ConverterPathParaFile(string path, string nomeArquivo, string tipoConteudo)
+        public static IFormFile ConverterPathParaIFormFile(string path, string nomeArquivo, string tipoConteudo)
         {
             FileStream? fileStream = new(path, FileMode.Open);
 
@@ -104,7 +104,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Converte o caminho de um arquivo para stream;
+        /// Converte caminho de um arquivo para stream;
         /// </summary>
         public static async Task<Stream?> ConverterPathParaStream(string path, long? chunkSize = 4096)
         {
@@ -130,7 +130,7 @@ namespace junioranheu_utils_package.Fixtures
         }
 
         /// <summary>
-        /// Normaliza o valor que é lido por um "SqlDataReader", que muitas vezes vem quebrado;
+        /// Normaliza valor que é lido por um "SqlDataReader", que muitas vezes vem quebrado;
         /// stackoverflow.com/a/870771;
         /// </summary>
         public static T? NormalizarSqlDataReader<T>(object obj)
