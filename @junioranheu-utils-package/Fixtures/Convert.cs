@@ -38,22 +38,27 @@ namespace junioranheu_utils_package.Fixtures
         /// </summary>
         public static IFormFile ConverterBase64ParaFile(string base64)
         {
-            List<IFormFile> formFiles = [];
             string split = ";base64,";
             string normalizarBase64 = base64;
 
-            if (base64.Contains(split))
+            try
             {
-                normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
+                if (base64.Contains(split))
+                {
+                    normalizarBase64 = base64[(base64.IndexOf(split) + split.Length)..];
+                }
+
+                byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
+
+                MemoryStream stream = new(bytes);
+                IFormFile file = new FormFile(stream, 0, bytes.Length, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
+ 
+                return file;
             }
-
-            byte[] bytes = System.Convert.FromBase64String(normalizarBase64);
-            MemoryStream stream = new(bytes);
-
-            IFormFile file = new FormFile(stream, 0, bytes.Length, Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-            formFiles.Add(file);
-
-            return formFiles[0];
+            catch (Exception ex)
+            {
+                throw new Exception($"Houve um erro ao processar e converter a imagem. Mais detalhes: {ex.Message}");
+            }
         }
 
         /// <summary>
