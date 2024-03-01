@@ -103,59 +103,56 @@ namespace junioranheu_utils_package.Fixtures
         /// </summary>
         public static void ValidarParamsEntidade(string nomeEntidade, object[] array, params string[] paramNames)
         {
-            try
+            if (array?.Length != paramNames?.Length)
             {
-                if (array?.Length != paramNames?.Length)
-                {
-                    throw new Exception($"Erro interno. A quantidade de propriedades da entidade '{nomeEntidade}' diferem no momento de sua validação");
-                }
-
-                if (array?.Length < 1 || paramNames?.Length < 1)
-                {
-                    throw new Exception($"Erro interno. Existe uma validação quebrada na entidade '{nomeEntidade}'");
-                }
-
-                for (int i = 0; i < array?.Length; i++)
-                {
-                    var item = array[i];
-                    string paramName = paramNames![i];
-
-                    bool isNull = false;
-
-                    if (item is string a && (string.IsNullOrEmpty(a) || string.IsNullOrWhiteSpace(a)))
-                    {
-                        isNull = true;
-                    }
-                    else if (item is int b && b < 1)
-                    {
-                        isNull = true;
-                    }
-                    else if (item is double c && c < 1.0)
-                    {
-                        isNull = true;
-                    }
-                    else if (item is Guid d && d == Guid.Empty)
-                    {
-                        isNull = true;
-                    }
-                    else if (item is DateTime e && e == DateTime.MinValue)
-                    {
-                        isNull = true;
-                    }
-                    else if (item == null)
-                    {
-                        isNull = true;
-                    }
-
-                    if (isNull)
-                    {
-                        throw new ArgumentException($"Erro interno. A propriedade '{paramName}' está inválida.");
-                    }
-                }
+                throw new Exception($"Erro interno. A quantidade de propriedades da entidade '{nomeEntidade}' diferem no momento de sua validação");
             }
-            catch (Exception)
-            {
 
+            if (array?.Length < 1 || paramNames?.Length < 1)
+            {
+                throw new Exception($"Erro interno. Existe uma validação quebrada na entidade '{nomeEntidade}'");
+            }
+
+            for (int i = 0; i < array?.Length; i++)
+            {
+                var item = array[i];
+                string paramName = paramNames![i];
+
+                bool isNull = false;
+
+                if (item is string a && (string.IsNullOrEmpty(a) || string.IsNullOrWhiteSpace(a)))
+                {
+                    isNull = true;
+                }
+                else if (item is int b && b < 1)
+                {
+                    isNull = true;
+                }
+                else if (item is double c && c < 1.0)
+                {
+                    isNull = true;
+                }
+                else if (item is float d && d < 1.0)
+                {
+                    isNull = true;
+                }
+                else if (item is Guid e && e == Guid.Empty)
+                {
+                    isNull = true;
+                }
+                else if (item is DateTime f && f == DateTime.MinValue)
+                {
+                    isNull = true;
+                }
+                else if (item == null)
+                {
+                    isNull = true;
+                }
+
+                if (isNull)
+                {
+                    throw new ArgumentException($"Erro interno. A propriedade '{paramName}' está inválida.");
+                }
             }
         }
 
