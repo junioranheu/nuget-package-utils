@@ -117,41 +117,40 @@ namespace junioranheu_utils_package.Fixtures
             {
                 var item = array[i];
                 string paramName = paramNames![i];
-
-                bool isNull = false;
+                bool isThrowEx = false;
 
                 if (item is string a && (string.IsNullOrEmpty(a) || string.IsNullOrWhiteSpace(a)))
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
                 else if (item is int b && b < 1)
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
                 else if (item is double c && c < 1.0)
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
                 else if (item is float d && d < 1.0)
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
                 else if (item is Guid e && e == Guid.Empty)
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
                 else if (item is DateTime f && f == DateTime.MinValue)
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
                 else if (item == null)
                 {
-                    isNull = true;
+                    isThrowEx = true;
                 }
 
-                if (isNull)
+                if (isThrowEx)
                 {
-                    throw new ArgumentException($"Erro interno. A propriedade '{paramName}' está inválida.");
+                    throw new ArgumentException($"Erro interno. A propriedade '{paramName}' está inválida na entidade '{nomeEntidade}'.");
                 }
             }
         }
