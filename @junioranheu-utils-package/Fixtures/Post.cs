@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using static junioranheu_utils_package.Fixtures.Convert;
 
@@ -231,6 +232,18 @@ namespace junioranheu_utils_package.Fixtures
                     Chunk = chunk
                 };
             }
+        }
+
+        /// <summary>
+        /// Define o valor de uma propriedade dinâmica de uma classe especificada;
+        /// Uso: SetPropDinamica<NomeDaClasse>(obj: obj, prop: "nomeDaProp", novoValor: a);
+        /// </summary>
+        public static void SetPropDinamica<T>(T obj, string prop, object novoValor)
+        {
+            Type type = typeof(T);
+            PropertyInfo property = type.GetProperty(prop) ?? throw new ArgumentException("Propriedade não encontrada", nameof(prop));
+
+            property.SetValue(obj, novoValor);
         }
     }
 }

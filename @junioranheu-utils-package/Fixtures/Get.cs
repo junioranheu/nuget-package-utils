@@ -352,5 +352,22 @@ namespace junioranheu_utils_package.Fixtures
 
             return numeroThreadAlvo;
         }
+
+        /// <summary>
+        /// Obtém o valor de uma propriedade dinâmica de uma classe especificada;
+        /// Exemplo de uso: var result = ObterPropDinamica<NomeDaClasse>(obj: obj, prop: "nomeDaProp");
+        /// </summary>
+        public static object? ObterPropDinamica<T>(T obj, string prop)
+        {
+            Type type = typeof(T);
+            PropertyInfo? property = type.GetProperty(prop);
+
+            if (property is not null)
+            {
+                return property.GetValue(obj);
+            }
+
+            throw new ArgumentException("Propriedade não encontrada", nameof(prop));
+        }
     }
 }
