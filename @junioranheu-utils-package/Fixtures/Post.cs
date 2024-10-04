@@ -1,9 +1,10 @@
-﻿using junioranheu_utils_package.Entities.Output;
-using Microsoft.AspNetCore.Http;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Azure.Storage.Blobs;
+using junioranheu_utils_package.Entities.Output;
+using Microsoft.AspNetCore.Http;
 using static junioranheu_utils_package.Fixtures.Convert;
 
 namespace junioranheu_utils_package.Fixtures
@@ -244,6 +245,35 @@ namespace junioranheu_utils_package.Fixtures
             PropertyInfo property = type.GetProperty(prop) ?? throw new ArgumentException("Propriedade não encontrada", nameof(prop));
 
             property.SetValue(obj, novoValor);
+        }
+
+        /// <summary>
+        /// Sobe um arquivo (IFormFile) no Blob Storage da Azure;
+        /// </summary>
+        public static async Task UploadFileToBlob(IFormFile file, string blobName, string connectionString, string containerName)
+        {
+            if (string.IsNullOrEmpty(blobName) || string.IsNullOrEmpty(connectionString))
+            {
+                throw new Exception("Os parâmetros blobName e connectionString não podem ser nulos");
+            }
+
+            string extension = Path.GetExtension(blobName);
+
+            if (string.IsNullOrEmpty(extension))
+            {
+                throw new Exception($"O blobName não possui uma extensão válida: {blobName}");
+            }
+
+            BlobServiceClient blobServiceClient = new(connectionString);
+
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+            await containerClient.CreateIfNotExistsAsync();
+
+            BlobClient blobClient = containerClient.GetBlobClient(blobName);
+
+            using var stream = file.OpenReadStream();
+            await blobClient.UploadAsync(stream, overwrite: true);
         }
     }
 }
