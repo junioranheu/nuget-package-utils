@@ -7,7 +7,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageId>junioranheu-utils-package</PackageId>
-		<Version>1.0.20</Version>
+		<Version>1.0.21</Version>
 		<Authors>junioranheu</Authors>
 		<Company>junioranheu</Company>
 		<Description>Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 8</Description>
@@ -22,12 +22,11 @@
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.2" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-		<PackageReference Include="System.ServiceProcess.ServiceController" Version="8.0.0" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+		<PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.0" />
 		<PackageReference Include="TimeZoneConverter" Version="6.1.0" />
-		<PackageReference Include="Azure.Storage.Blobs" Version="12.22.1" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.23.0" />
 	</ItemGroup>
 
 	<ItemGroup>
