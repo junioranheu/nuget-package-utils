@@ -1,7 +1,7 @@
 
 # @junioranheu-utils-package
 
-Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em .NET 8.
+Pacote NuGet contendo múltiplos métodos úteis para qualquer tipo de projeto em <b>.NET 9</b>.
 
 ## Publicação
 O projeto foi publicado em [junioranheu-utils-package](https://www.nuget.org/packages/junioranheu-utils-package/)
