@@ -160,7 +160,7 @@ namespace junioranheu_utils_package.Fixtures
                 throw new ArgumentNullException(nameof(lista), "A lista não pode ser nula");
             }
 
-            List<T> clonedList = new();
+            List<T> clonedList = [];
 
             foreach (T item in lista)
             {
@@ -204,7 +204,7 @@ namespace junioranheu_utils_package.Fixtures
         public static Encoding DetectarEncoding(Stream stream)
         {
             byte[] bom = new byte[4];
-            stream.Read(bom, 0, 4);
+            stream.ReadExactly(bom, 0, 4);
 
             if (bom.Length >= 2 && bom[0] == 0xFE && bom[1] == 0xFF)
             {
